@@ -1,52 +1,34 @@
- 🚀 T-MINUS - Turn Chaos into Countdown
+# 🚀 T-MINUS | Mission Control
 
-**LifeFix made daily inconveniences a piece of cake. T-MINUS makes them a mission.**
+> NASA-inspired productivity system that turns your boring to-do list into a space mission.
 
-Live Demo: [Add your Streamlit / Vercel link here]
+### What is T-MINUS?
 
-What is T-MINUS?
+T-MINUS transforms everyday problem-solving into a space mission. Instead of tasks, you have **mission objectives**. Instead of a timer, you have a **T-MINUS launch clock**. Instead of distractions, you have **mission anomalies**.
 
-T-MINUS is a fun, interactive web app that solves small everyday problems that make life stressful.
+It makes progress visible, goals actionable, and productivity actually engaging.
 
-Instead of a boring to-do list, T-MINUS turns your life into a Space Mission.
+### ✨ Features
+- **Mission Clock** - 2 hour countdown with START / PAUSE / RESET
+- **Mission Objectives** - Add, complete, delete objectives with localStorage persistence
+- **Live Mission Stats** - Objectives, Active, Completed, Progress % with animated bar
+- **Side Quest Generator** - Random productivity challenges to stay sharp
+- **Mission Anomaly Check** - Turns distractions into NASA-style anomalies
+- **Confetti Launch** - Celebrates when you complete objectives or launch time hits
 
-You describe a situation: 
-> "Getting ready for school", "Preparing for a trip", "I have 2 hours to finish 5 things", "What to pack before leaving home?"
+### 🛠️ Tech Stack
+- **Flask** - Backend (No more Streamlit sleeping)
+- **HTML/CSS/JS + Chart.js** - Frontend with glassmorphism + space theme
+- **Gunicorn + Render + GitHub** - Always-on deployment
 
-T-MINUS breaks it down and guides you to LAUNCH.
+### What I Fixed
 
- Space Language 
-| Real Life | T-MINUS |
-| :--- | :--- |
-| Tasks | **Objectives** |
-| Important Items to carry | **Payload** |
-| Deadline | **Launch Time / T-Minus** |
-| Unexpected Problems | **Mission Anomalies** |
-| You | **Commander** |
-| Completion | **Liftoff** |
+My first version was on **Streamlit**. It looked good locally but on deployment it kept sleeping. After 15 mins of inactivity the link would die and users saw "Waking up" screen. For a productivity timer that needs to run live, that's useless.
 
- Features
-
-Mission Control Dashboard - Enter any daily situation
-Auto Mission Breakdown- AI breaks your situation into small Objectives
-Payload Checklist- Never forget keys, wallet, homework, charger again
-T-Minus Countdown Timer - Visual countdown to your Launch Time
-Anomaly Handler - "Bus is late? Forgot tiffin?" -> Quick backup solutions
-Liftoff Celebration - Fun animation when you complete all objectives
+So I rebuilt the whole app in **Flask**. Flask + Render never sleeps if you add UptimeRobot.
 
 
 
- Tech Stack
 
-- Python / Streamlit or HTML/CSS/JS
-- Space-themed UI with animations
-- Logic for mission parsing and step generation
-
-How to Run Locally
-
-
-git clone https://github.com/YOUR_USERNAME/T-MINUS.git
-cd T-MINUS
 pip install -r requirements.txt
-streamlit run app.py
-# or if web: open index.html
+python app.py
