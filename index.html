@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T-MINUS | Mission Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:radial-gradient(circle at 50% -10%, rgba(37,99,235,0.30), transparent 40%), radial-gradient(circle at 90% 50%, rgba(6,182,212,0.10), transparent 35%), #020617;color:white;font-family:'Space Grotesk',system-ui;overflow-x:hidden}
+.hero{text-align:center;padding:30px 0}
+.eyebrow{color:#22d3ee;font-size:11px;letter-spacing:4px;font-weight:700}
+.hero-title{font-size:70px;font-weight:900;letter-spacing:-4px;background:linear-gradient(90deg,#fff,#60a5fa,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{color:#94a3b8;font-size:14px}
+.nav{max-width:1200px;margin:0 auto;padding:20px;display:flex;justify-content:space-between}
+.pill{background:#0f172a;border:1px solid rgba(96,165,250,0.2);padding:8px 12px;border-radius:20px;font-size:11px}
+.wrap{max-width:1200px;margin:0 auto;padding:15px;display:grid;grid-template-columns:300px 1fr;gap:16px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:rgba(15,23,42,0.8);border:1px solid rgba(96,165,250,0.18);border-radius:16px;padding:22px;margin-bottom:14px}
+.countdown{text-align:center;font-family:'JetBrains Mono',monospace;font-size:68px;font-weight:700;letter-spacing:5px;text-shadow:0 0 25px rgba(34,211,238,0.4)}
+.count-label{text-align:center;color:#22d3ee;font-size:10px;letter-spacing:3px}
+.btn{width:100%;padding:12px;border:1px solid rgba(255,255,255,0.1);border-radius:10px;background:rgba(255,255,255,0.05);color:white;font-weight:700;cursor:pointer}
+.btn-main{background:white;color:#020617}
+.btn:hover{transform:translateY(-1px)}
+.stat{background:rgba(15,23,42,0.8);border:1px solid rgba(96,165,250,0.15);border-radius:14px;padding:18px;min-height:90px}
+.stat-label{color:#94a3b8;font-size:9px;letter-spacing:2px}.stat-val{font-size:28px;font-weight:800}
+.mission{background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:14px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.mission.done{opacity:0.4;text-decoration:line-through}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,0.3);color:white;outline:none}
+.progress{height:6px;background:rgba(255,255,255,0.1);border-radius:10px;overflow:hidden;margin:10px 0}
+.fill{height:100%;background:linear-gradient(90deg,#60a5fa,#22d3ee);width:0%;transition:.5s}
+</style>
+</head>
+<body>
+<div class="nav"><div>🚀 T-MINUS</div><div class="pill">● SYSTEM ONLINE</div></div>
+
+<div class="hero">
+<div class="eyebrow">NASA-INSPIRED PRODUCTIVITY SYSTEM</div>
+<div class="hero-title">T-MINUS</div>
+<div class="hero-sub">MISSION CONTROL FOR EVERYDAY PROBLEM-SOLVING</div>
+</div>
+
+<div style="max-width:1200px;margin:0 auto;padding:0 15px">
+<div class="card" style="text-align:center">
+<div class="count-label" id="missionLabel">NEXT LAUNCH • PROJECT T-MINUS</div>
+<div class="countdown" id="clock">02:00:00</div>
+<div class="count-label">T-MINUS MISSION CLOCK</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto">
+<button class="btn btn-main" onclick="start()">▶ START MISSION</button>
+<button class="btn" onclick="pause()">❚❚ PAUSE</button>
+<button class="btn" onclick="resetTimer()">↻ RESET</button>
+</div>
+<div id="status" style="margin-top:12px;color:#22c55e;font-size:11px;letter-spacing:2px">🟡 MISSION STANDBY</div>
+</div>
+</div>
+
+<div class="wrap">
+<div>
+<div class="card">
+<h3>🛰️ Mission Parameters</h3>
+<label style="font-size:10px;color:#94a3b8">MISSION NAME</label>
+<input id="mName" value="PROJECT T-MINUS" oninput="updateLabel()">
+<label style="font-size:10px;color:#94a3b8;margin-top:10px;display:block">OPERATOR</label>
+<input id="opName" value="COMMANDER">
+<div style="margin-top:14px">
+<div style="font-size:11px;color:#94a3b8">STATS</div>
+<div id="stats" style="margin-top:8px"></div>
+<div class="progress"><div class="fill" id="progFill"></div></div>
+<div style="font-size:11px;color:#64748b" id="progText">0 of 0 complete</div>
+</div>
+<button class="btn" style="margin-top:14px;background:#ef444422;border-color:#ef444444;color:#f87171" onclick="resetAll()">🔄 RESET ALL DATA</button>
+</div>
+
+<div class="card">
+<h3>🎲 SIDE QUEST</h3>
+<p style="color:#94a3b8;font-size:12px;margin:6px 0">Optional challenges to stay sharp.</p>
+<button class="btn" onclick="getQuest()">🎲 GENERATE SIDE QUEST</button>
+<div style="background:#22c55e22;border:1px solid #22c55e33;padding:12px;border-radius:10px;margin-top:10px;font-size:13px" id="questBox">Mission systems ready. Generate a side quest.</div>
+</div>
+
+<div class="card">
+<h3>🚨 MISSION ANOMALY</h3>
+<p style="color:#94a3b8;font-size:12px;margin:6px 0">Unexpected problems.</p>
+<button class="btn" onclick="getAnomaly()">⚠️ RUN SYSTEM CHECK</button>
+<div style="background:#eab30822;border:1px solid #eab30833;padding:12px;border-radius:10px;margin-top:10px;font-size:13px" id="anomBox">Mission systems nominal. No anomalies detected.</div>
+</div>
+</div>
+
+<div>
+<div class="card">
+<h3>🎯 Mission Objectives</h3>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input id="objInput" placeholder="Example: Complete NASA presentation">
+<button class="btn btn-main" style="width:140px" onclick="addObj()">🚀 ADD</button>
+</div>
+<div id="missionList" style="margin-top:14px"><p style="color:#475569;text-align:center;padding:20px">🛰️ No objectives detected.</p></div>
+</div>
+</div>
+</div>
+
+<script>
+let totalSeconds=7200; let remaining=7200; let timer=null; let running=false;
+let missions=JSON.parse(localStorage.getItem('tminus_missions')||'[]');
+let launched=false;
+
+function save(){localStorage.setItem('tminus_missions',JSON.stringify(missions));}
+function updateLabel(){document.getElementById('missionLabel').innerText='NEXT LAUNCH • '+document.getElementById('mName').value.toUpperCase();}
+function renderClock(){let h=Math.floor(remaining/3600), m=Math.floor((remaining%3600)/60), s=remaining%60;document.getElementById('clock').innerText=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+function start(){if(running)return; running=true; document.getElementById('status').innerText='🟢 MISSION IN PROGRESS'; timer=setInterval(()=>{remaining--; renderClock(); if(remaining<=0){clearInterval(timer);running=false;launched=true;document.getElementById('status').innerText='🚀 LAUNCH TIME REACHED'; confetti();}},1000);}
+function pause(){clearInterval(timer);running=false;document.getElementById('status').innerText='🟡 MISSION STANDBY';}
+function resetTimer(){clearInterval(timer);running=false;remaining=7200;renderClock();document.getElementById('status').innerText='🟡 MISSION STANDBY';}
+function resetAll(){missions=[];save();renderMissions();resetTimer();}
+function addObj(){let v=document.getElementById('objInput').value.trim();if(!v)return;missions.push({id:Date.now(),title:v,completed:false,created:new Date().toLocaleTimeString()});document.getElementById('objInput').value='';save();renderMissions();}
+function toggle(id){let m=missions.find(x=>x.id===id);if(m){m.completed=!m.completed;if(m.completed)confetti();save();renderMissions();}}
+function del(id){missions=missions.filter(x=>x.id!==id);save();renderMissions();}
+function renderMissions(){
+ let total=missions.length, comp=missions.filter(m=>m.completed).length, active=total-comp, prog=total?Math.round(comp/total*100):0;
+ document.getElementById('stats').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class=stat><div class=stat-label>OBJECTIVES</div><div class=stat-val>${total}</div></div><div class=stat><div class=stat-label>ACTIVE</div><div class=stat-val>${active}</div></div><div class=stat><div class=stat-label>COMPLETED</div><div class=stat-val>${comp}</div></div><div class=stat><div class=stat-label>PROGRESS</div><div class=stat-val>${prog}%</div></div></div>`;
+ document.getElementById('progFill').style.width=prog+'%'; document.getElementById('progText').innerText=comp+' of '+total+' objectives complete';
+ let list=document.getElementById('missionList'); if(!total){list.innerHTML='<p style="color:#475569;text-align:center;padding:20px">🛰️ No objectives detected.</p>';return;}
+ list.innerHTML=missions.map(m=>`<div class="mission ${m.completed?'done':''}"><div><b>${m.title}</b><br><small style="color:#94a3b8">${m.completed?'COMPLETED':'ACTIVE'} • ${m.created}</small></div><div style="display:flex;gap:6px"><button class=btn style="width:auto;padding:8px 12px" onclick="toggle(${m.id})">${m.completed?'↩':'✓'}</button><button class=btn style="width:auto;padding:8px 12px" onclick="del(${m.id})">🗑</button></div></div>`).join('');
+}
+async function getQuest(){let r=await fetch('/api/side-quest');let d=await r.json();document.getElementById('questBox').innerText=d.quest;}
+async function getAnomaly(){let r=await fetch('/api/anomaly');let d=await r.json();document.getElementById('anomBox').innerText=d.anomaly;}
+function confetti(){for(let i=0;i<60;i++){let el=document.createElement('div');el.style.position='fixed';el.style.left=Math.random()*100+'vw';el.style.top='-10px';el.style.width='8px';el.style.height='8px';el.style.background='hsl('+(200+Math.random()*60)+',100%,60%)';el.style.borderRadius='50%';el.style.zIndex=9999;document.body.appendChild(el);el.animate([{transform:'translateY(0)'},{transform:'translateY(100vh) rotate(720deg)'}],{duration:1000+Math.random()*1000}).onfinish=()=>el.remove();}}
+renderClock();renderMissions();
+</script>
+</body>
+</html>
