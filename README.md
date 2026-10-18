@@ -1,4 +1,4 @@
-# 🚀 T-MINUS | Mission Control
+# 🚀 T-MINUS / Mission Control
 
 
 ### What is T-MINUS?
