@@ -8,7 +8,7 @@ T-MINUS transforms everyday problem-solving into a space mission. Instead of tas
 It makes progress visible, goals actionable, and productivity actually engaging.
 
 ###  Features
-- **Mission Clock** - 2 hour countdown with START / PAUSE / RESET
+- **Mission Clock** -  hour countdown with START / PAUSE / RESET
 - **Mission Objectives** - Add, complete, delete objectives with localStorage persistence
 - **Live Mission Stats** - Objectives, Active, Completed, Progress % with animated bar
 - **Side Quest Generator** - Random productivity challenges to stay sharp
