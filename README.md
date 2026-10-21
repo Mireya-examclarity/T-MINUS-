@@ -17,6 +17,8 @@ It makes progress visible, goals actionable, and productivity actually engaging.
 
 ###  Tech Stack
 - **HTML
+-** Java script
+- ** Python
 
 
 
